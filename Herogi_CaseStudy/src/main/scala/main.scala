@@ -1,6 +1,7 @@
 import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.functions.col
 import scala.util.{Try, Success, Failure}
+import scala.math.BigDecimal
 
 object TestApp extends App {
   lazy implicit val spark = SparkSession.builder().master("local").appName("spark_test").getOrCreate()
@@ -28,13 +29,15 @@ object TestApp extends App {
                  .map(row => row.split(",")) // Split each line on ',' to make an Array of 3 String each
                  .map { case Array(f1,f2,f3) => (f1,f2,f3) }// Convert that Array[String] into Array[(String, String, String)]  
                   
-  val df1 = m1.toDF("userid", "total_time", "distance")
-  val df2 = m2.toDF("userid", "username", "age")
+  val df1 = m1.toDF("userid", "total_time", "distance") //Creating Pace dataframe
+  val df2 = m2.toDF("userid", "username", "age") //Creating Users dataframe
   
-  import org.apache.spark.sql.functions._
+  import org.apache.spark.sql.functions._  //For SQL operations
   
-  val df3 = df2.join(df1, ("userid")).drop("userid")
-  val result = df3.withColumn("average_pace", $"distance" / $"total_time").sort(desc("average_pace"))
+  val df3 = df2.join(df1, ("userid")).drop("userid")  //Joining Pace and Users dataframe by their mutual userid column
+  val result = df3.withColumn("average_pace", format_number(($"distance".as[Double] / $"total_time".as[Double]),2)).sort(desc("average_pace"))  //Calculating the average pace and getting rid of extra decimals
+                                                                                                                                                //while creating the coresponding column and add it to the final dataframe
+  
   df1.show()
   df2.show()
   df3.show()
