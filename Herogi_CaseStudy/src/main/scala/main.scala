@@ -37,7 +37,6 @@ object TestApp extends App {
   val result = df3.withColumn("average_pace", $"distance" / $"total_time").sort(desc("average_pace"))
   df1.show()
   df2.show()
-  //df.select("col3").groupBy("col3").count.sort(col("count").desc).show()
   df3.show()
   result.show()
 
