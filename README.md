@@ -2,8 +2,11 @@
 Runner Leaderboard
 
 Scala ver: 2.12.12
+
 Spark ver: 3.0.0
+
 Created and worked on: Scastie
+
 <script src="https://scastie.scala-lang.org/8Dntk9VxRvmfvfuvxYdxJw.js"></script>
 
 First of all, I used Scala-Spark and worked on the website called Scastie where you can implement and test your code on the browser environment. I find it really useful and reachable and that's the reason I chose it.
@@ -16,7 +19,7 @@ libraryDependencies ++= Seq(
 
 -Walkthrough-
 
-1) I needed to read the input files in order to navigate through my mission. There comes my first challenge. Because, Scastie is a browser environment and it  can not reach the files in my computer, therefore I can not simply show a filepath to input files. However, I can show an URL link to Scastie that was on my Github. I converted the raw URL format of the each Pace.csv and Users.csv to a seperate single String. BEfore starting to process them I split them based on white spaces at the end of each row. (There was a white space for some reason and I don't know why but I used it to my advantage)
+1) I needed to read the input files in order to navigate through my mission. There comes my first challenge. Because, Scastie is a browser environment and it  can not reach the files in my computer, therefore I can not simply show a filepath for input files. However, I can show an URL link to Scastie that was on my Github. I converted the raw URL format of the each Pace.csv and Users.csv to a seperate single String. Before starting to process them I split them based on white spaces at the end of each row. (There was a white space for some reason and I don't know why but I used it to my advantage)
 
 2) After that conversion, my aim was converting those strings into workable map format. Before converting I also filtered out the unnecessary parts such as the first elements of those strings (userid, user_name, distance, age, total_time), empty lines and white spaces at the end of every row except the last one.
 
